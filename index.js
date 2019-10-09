@@ -2,10 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { SENDGRID_APIKEY } = require('./config');
 const sgMail = require('@sendgrid/mail');
+var cors = require('cors')
 
 sgMail.setApiKey(SENDGRID_APIKEY);
 const app = express();
 app.use(bodyParser.json());
+app.use(cors())
 
 app.post('/', (req, res) => {
     const {from, name, text} = req.body;
@@ -21,3 +23,5 @@ app.post('/', (req, res) => {
 });
 
 app.listen(process.env.PORT, () => console.log('Express server is listening on port '+process.env.PORT));
+
+// https://portfolio-send-email.herokuapp.com/
